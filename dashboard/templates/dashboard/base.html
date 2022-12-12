@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block titulo%}
+    <title>:: Gerenciador de Visitantes ::</title>
+    {% endblock %}
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/shield1.png' %}" >
+    
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">    
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+
+<body id="page-top">
+    <div id="wrapper">
+        <div class="navbar-nav bg-visint sidebar sidebar-dark" id="visintSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-users"></i>
+                </div>
+                
+                <div class="sidebar-brand-text">Gerenciador de Visitantes</div>
+                
+            </a>
+            {% if request.user.is_authenticated %}
+            <hr class="sidebar-divider my-0 border-success" >
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inicio' %}">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </a>
+            </li>
+            {% endif %}
+            <hr class="sidebar-divider border-success">
+        </div>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-800 small">
+                                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                                    <span id="username">{{ request.user }}</span>                                        
+                                </span>
+                            </a>
+                            
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                    Meus dados</a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-lock" aria-hidden="true"></i>
+                                    </a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Sair
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                {% block conteudo %} 
+                <div class="container">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Bem vindo! {{ request.user }}</h1>
+                    </div>
+
+                </div>
+                {% endblock conteudo %}
+
+                {% block rodape%}
+                <footer class="mt-auto">
+                    <br><br><br><br><br><br><br>
+                
+                    <div class="container-fluid bg-visint text-center p-3">
+                        <div class="row">
+                            <div class="col-md4 mx-auto text-center">
+                                <p>
+                                    <!--<span class="lead">Gerenciador de Visitante</span><br>-->
+                                    <img src="{% static 'img/shield1.png'%}" height="40" alt="">
+                                    <br>
+                                    <span>::Desenvolvido por Paula Santos:: </span>
+                                    <i class="fa fa-cat" aria-hidden="true"></i>
+                                    <br>
+                                    <span>Copyright © Django framework</span>
+                                </p>                                
+                                
+                            </div>
+
+                        </div>
+                        {% endblock%}
+
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Você realmente deseja sair?</h5>
+                        
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">Selecione "sair" se realmente deseja sair</div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-success" href="{% url 'logout' %}">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src=" {% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src=" {% static 'js/sb-admin-2.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load widget_tweaks %}
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <title>Controle de Visitantes | Autenticação</title>
+        
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">  
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">  
+        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    </head>
+
+    <body class="bg-visint">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-10 col-md-9">
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            
+    
+                                <div class="col-lg-12">
+                                    <div class="p-5">
+                                        <div class="text-center mb-5">
+                                            <h1 class="h3 text-gray-900">Seja bem-vindo!</h1>    
+                                            <p>Faça login para continuar</p>
+                                        </div>
+
+                                        {% if form.errors %}
+                                            <div class="alert alert-warning" role="alert">
+                                                E-mail ou senha incorretos
+                                            </div>
+                                        {% endif %}
+                                                                            
+    
+                                        <form method="post" class="user">
+                                            <div class="form-row">
+                                                {% csrf_token %}
+
+                                                {% for field in form %}
+                                                <div class="form-group col-md-6 offset-md-3">
+                                                    {% render_field field placeholder=field.label class="form-control-user" %}
+                                                </div>
+                                                {%endfor%}                                     
+                                            </div>
+                                            
+                                            <button class="btn btn-success btn-user bnt-center col-md-6 offset-md-3" type="submit">
+                                                <span class="text">Acessar</span>
+                                            </button>                                            
+                                        </form>
+                                        {% if request.user.is_authenticated %}
+                                        <div class="p-2">
+                                            <p class="text-center">Não tem permissão? clique em voltar</p>
+                                            <a href="{% url 'inicio' %}" class="btn btn-warning bnt-user btn-center col-md-6 offset-md-3" type="button">voltar
+                                            </a>  
+                                            
+                                        </div>
+                                        {% else %}
+                                        <div class="p-2">
+                                            <p class="text-center">Ainda não tem cadastro?</p>
+                                            <a href="{% url 'registrar' %}" class="btn btn-warning bnt-user btn-center col-md-6 offset-md-3" type="button">Cadastrar
+                                            </a>  
+                                            
+                                        </div>
+                                        {% endif%} 
+                                    </div>
+                                </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    </body>
+</html>
